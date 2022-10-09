@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* .active{
+    border: 1px solid blueviolet;
+    background-color:  blueviolet;
+} */
+
+/* .mat-form-field-appearance-outline .mat-form-field-prefix,
+.mat-form-field-appearance-outline .mat-form-field-suffix {
+  place-self: center;
+} */
+small-caps{
+  font-variant: small-caps;
+  font-variant-caps: small-caps;
+}
+
+.card-container{
+  background: url('/assets/img/svg/nice-curves-1.svg');
+  aspect-ratio: 960/540;
+  background-repeat: no-repeat; 
+  background-size: cover;
+}
+
+.svg-background-color{
+  color: #C62368;
+}

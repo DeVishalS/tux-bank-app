@@ -1,0 +1,42 @@
+<div class="flex justify-center items-center small-caps w-full h-full card-container uppercase">
+    <mat-card class="mat-elevation-z8 w-1/4">
+        <mat-card-title class="p-16 text-center">Tux Net Banking</mat-card-title>
+        <mat-card-subtitle>
+            
+        </mat-card-subtitle>
+        <div class="bg-red-100 border border-red-400 text-orange-600 px-4 py-3 rounded" *ngIf="state=='ERROR'">
+            <span class="flex items-center break-words"><mat-icon>error</mat-icon><span classs="px-2">Username / Password Incorrect. Please try again</span> </span>
+          </div>
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <fieldset class="border-2 rounded flex flex-col justify-start my-5">
+                    <legend class="mx-1">
+                        <mat-icon color="accent">locked</mat-icon>
+                    </legend>
+                    <mat-form-field class="mx-5 my-1" appearance="outline">
+                        <mat-label>UserName</mat-label>
+                        <input type="text" matInput formControlName="userLogin">
+                        <mat-error *ngIf="loginForm.controls.userLogin.hasError('required')">
+                            Username can't be empty
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mx-5" appearance="outline">
+                        <mat-label>PassCode</mat-label>
+                        <input type="password" matInput formControlName="password">
+                        <mat-error *ngIf="loginForm.controls.userLogin.hasError('required')">
+                            Password can't be empty
+                        </mat-error>
+                    </mat-form-field>
+                </fieldset>
+
+                <button mat-raised-button color="accent" [disabled]="!loginForm.valid">LOGIN</button>
+            </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            
+        </mat-card-actions>
+        <mat-card-footer>
+            <mat-progress-bar mode="indeterminate" *ngIf="state=='INPROGRESS'" color="accent"></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+</div>

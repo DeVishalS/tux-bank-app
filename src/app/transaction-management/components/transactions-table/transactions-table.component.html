@@ -1,0 +1,29 @@
+<ng-container>
+    <ng-container *ngIf="dataSource.loading$ | async">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-container>
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="referenceId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Reference</mat-header-cell>
+            <mat-cell *matCellDef="let txn">{{txn.referenceId}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="customerName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+            <mat-cell *matCellDef="let txn">{{txn.customerName}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Amount</mat-header-cell>
+            <mat-cell *matCellDef="let txn">{{txn.amount | currency: txn.currency:'symbol-narrow'}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="currency">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Currency</mat-header-cell>
+            <mat-cell *matCellDef="let txn">{{txn.currency}}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+
+    </mat-table>
+
+    <mat-paginator [length]="totalTransactionsSize" [pageSize]="defaultPageSize" [pageSizeOptions]="[3,5,10]"></mat-paginator>
+</ng-container>

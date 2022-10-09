@@ -1,0 +1,168 @@
+<mat-card class="m-2 h-fit">
+    <mat-card-title>Start Transaction</mat-card-title>
+    <mat-card-subtitle>Submit Below form for fund transfer</mat-card-subtitle>
+    <mat-card-content>
+
+        <form [formGroup]="transactionDetails" (ngSubmit)="onSubmit()" class="flex flex-col">
+
+            <fieldset class="border-t border-solid border-slate-300">
+                <legend class="mx-2 p-2 text-slate-400">Transaction Type</legend>
+
+                <div class="my-2 ml-3">
+                    <mat-radio-group formControlName="customerType">
+                        <mat-radio-button value="New">New</mat-radio-button>
+                        <mat-radio-button class="m-2" value="Existing">Existing</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <mat-error *ngIf="transactionDetails.controls.customerType.hasError('required')">
+                    Please choose transaction type.
+                </mat-error>
+
+            </fieldset>
+
+            <!-- <fieldset class="border-t border-solid border-slate-300">
+                <legend class="mx-2 p-2 text-slate-400">Reference Id</legend>
+                <mat-form-field class="my-2 ml-3" appearance="outline">
+                    <mat-label>Reference Number</mat-label>
+                    <input matInput>
+                </mat-form-field>
+            </fieldset> -->
+
+
+
+            <fieldset class="border-t border-solid border-slate-300">
+
+                <legend class="mx-2 p-2 text-slate-400">Customer Details</legend>
+
+                <mat-form-field class="my-2 ml-3" appearance="outline">
+                    <mat-label>Customer Number</mat-label>
+                    <input matInput formControlName="customerNumber">
+                    <mat-error *ngIf="transactionDetails.controls.customerNumber.hasError('required')">
+                        Please enter valid Customer Number.
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field class="my-2 ml-2" appearance="outline">
+                    <mat-label>Customer name</mat-label>
+                    <input matInput formControlName="customerName">
+                    <mat-error *ngIf="transactionDetails.controls['customerName'].hasError('required')">
+                        Please enter valid Customer Name.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="my-2 ml-2" appearance="outline">
+                    <mat-label>Customer Address</mat-label>
+                    <input matInput formControlName="customerAddress">
+                    <mat-error *ngIf="transactionDetails.controls.customerAddress.hasError('required')">
+                        Please enter valid Customer Address.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="my-2 ml-2 flex" appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="customerPhone">
+                    <mat-error *ngIf="transactionDetails.controls.customerPhone.hasError('required')">
+                        Please enter valid Customer Phone.
+                    </mat-error>
+                    <mat-error *ngIf="transactionDetails.controls.customerPhone.hasError('pattern')">
+                        Please enter numbers only.
+                    </mat-error>
+                </mat-form-field>
+
+            </fieldset>
+
+            <fieldset class="border-t border-solid border-slate-300">
+                <legend class="mx-2 p-2 text-slate-400">Amount Details</legend>
+
+                <mat-form-field class="my-2 ml-3" appearance="outline">
+                    <mat-label>Transfer Currency</mat-label>
+                    <mat-select formControlName="currency">
+                        <mat-option *ngFor="let currency of currencies" [value]="currency"> <span>{{ currency |
+                                currencySymbol }}</span> - {{currency}} </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="transactionDetails.controls.currency.hasError('required')">
+                        Please select currency
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="my-2 ml-2" appearance="outline">
+                    <mat-label>Transfer Amount</mat-label>
+                    <input matInput formControlName="amount">
+                    <mat-error *ngIf="transactionDetails.controls.amount.hasError('required')">
+                        Please enter valid Amount.
+                    </mat-error>
+                    <mat-error *ngIf="transactionDetails.controls.amount.hasError('pattern')">
+                        Please enter numbers only.
+                    </mat-error>
+                </mat-form-field>
+
+            </fieldset>
+
+            <fieldset class="border-t border-solid border-slate-300">
+                <legend class="mx-2 p-2 text-slate-400">Beneficiary Details</legend>
+
+                <mat-form-field class="my-2 ml-3" appearance="outline">
+                    <mat-label>Beneficiary Bank</mat-label>
+                    <input matInput formControlName="beneficiaryBank">
+                    <mat-error *ngIf="transactionDetails.controls.beneficiaryBank.hasError('required')">
+                        Please enter valid Beneficiary Bank.
+                    </mat-error>
+                    <mat-error *ngIf="transactionDetails.controls.beneficiaryBank.hasError('pattern')">
+                        Please enter alphabets only.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="my-2 ml-2" appearance="outline">
+                    <mat-label>Beneficiary A/c No</mat-label>
+                    <input matInput formControlName="beneficiaryAccountNumber">
+                    <mat-error *ngIf="transactionDetails.controls.beneficiaryAccountNumber.hasError('required')">
+                        Please enter valid Account Number.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="my-2 ml-2" appearance="outline">
+                    <mat-label>Payment Details</mat-label>
+                    <input matInput type="text" formControlName="paymentDetails" />
+                    <mat-error *ngIf="transactionDetails.controls.paymentDetails.hasError('required')">
+                        Please enter valid Payment Details.
+                    </mat-error>
+                    <mat-error *ngIf="transactionDetails.controls.customerPhone.hasError('pattern')">
+                        Please enter alphabets only.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="my-2 ml-2" appearance="outline">
+                    <mat-label>Card Details</mat-label>
+                    <input matInput type="text" formControlName="cardDetails" />
+                    <mat-error *ngIf="transactionDetails.controls.cardDetails.hasError('required')">
+                        Please enter valid Card Details.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="my-2 ml-2" appearance="outline">
+                    <mat-label>Region</mat-label>
+                    <mat-select formControlName="region">
+                        <mat-option *ngFor="let region of regions" [value]="region">{{ region }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="transactionDetails.controls.region.hasError('required')">
+                        Please enter valid region.
+                    </mat-error>
+                </mat-form-field>
+            </fieldset>
+            <div class="ml-3">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!transactionDetails.valid"
+                    class="w-fit">
+                    <mat-icon> send </mat-icon>
+                    SUBMIT
+                </button>
+            </div>
+
+        </form>
+
+    </mat-card-content>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+    </mat-card-footer>
+
+</mat-card>
