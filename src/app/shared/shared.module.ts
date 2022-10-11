@@ -19,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -28,23 +29,7 @@ import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
   ],
   imports: [
     CommonModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatCardModule,
-    MatRadioModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDividerModule,
-    MatSelectModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatMenuModule
+    TranslateModule
   ],
   exports: [ 
     CurrencySymbolPipe,
@@ -64,7 +49,8 @@ import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
     MatSortModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatMenuModule 
+    MatMenuModule,
+    TranslateModule 
   ]
 })
 export class SharedModule { }

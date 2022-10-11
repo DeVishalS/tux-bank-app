@@ -1,0 +1,5 @@
+{
+    "ACCOUNT_LOCKED_DUE_TO_EXCEEDED_INVALID_ATTEMPTS": "You have exceeded no of allowed login attempts",
+    "INCORRECT_USER_CREDENTIALS" :"Username or password is incorrect",
+    "tux-bank-app":"TUX Net Banku"
+}

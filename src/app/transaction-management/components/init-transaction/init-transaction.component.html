@@ -1,4 +1,22 @@
+<div class="m-2">
+    <div class="bg-red-100 border-2 border-red-400 text-red-600 py-2 px-3 rounded w-fit" *ngIf="submissionState=='ERROR'">
+        <span class="flex items-center text-sm font-semibold">
+            <mat-icon class="mr-2">error</mat-icon>
+            <div classs="px-2 mx-4">Transaction Submission Failed</div>
+            <button (click)="submissionState=''" class="ml-3">X</button>
+        </span>
+    </div>
+    <div class="bg-green-100 border-2 border-green-400 text-green-600 py-2 px-3 rounded w-fit" *ngIf="submissionState=='SUCCESS'">
+        <span class="flex items-center text-sm font-semibold">
+            <mat-icon class="mr-2">done</mat-icon>
+            <div classs="px-2 mx-4">Transaction Submission Success - ReferenceNo <strong class="text-blue-900">{{refId}}</strong></div>
+            <button (click)="submissionState=''" class="ml-3">X</button>
+        </span>
+    </div>
+</div>
+
 <mat-card class="m-2 h-fit">
+    
     <mat-card-title>Start Transaction</mat-card-title>
     <mat-card-subtitle>Submit Below form for fund transfer</mat-card-subtitle>
     <mat-card-content>
@@ -88,7 +106,7 @@
 
                 <mat-form-field class="my-2 ml-2" appearance="outline">
                     <mat-label>Transfer Amount</mat-label>
-                    <input matInput formControlName="amount">
+                    <input type="number" step=0 matInput formControlName="amount">
                     <mat-error *ngIf="transactionDetails.controls.amount.hasError('required')">
                         Please enter valid Amount.
                     </mat-error>

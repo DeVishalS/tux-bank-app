@@ -1,7 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, Observable, of, throwError } from 'rxjs';
+import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
 
-export enum APP_ROLE {
+export enum ROLE {
   _USER,
   _ADMIN
 }
@@ -16,22 +17,24 @@ export interface UserCreds {
 })
 export class AuthService {
 
+  //TO BE Maintained in environment property or from window location
+  LOGIN_URL:string="http://localhost:8080/api/user";
+
   LS_ROLES_KEY: string = 'loggedInUserRoles';
   LS_USER_KEY: string = 'loggedInUser';
   LS_USER_NAME_KEY: string = 'loggedInUserName';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   private userDirectory: Array<any> =
     [
-      { userName: 'Vishal', userLogin: 'vishal', password: 'power', roles: [APP_ROLE._ADMIN] },
-      { userName: 'John', userLogin: 'john', password: 'power', roles: [APP_ROLE._USER] },
-      { userName: 'Shalaka', userLogin: 'shalaka', password: 'power', roles: [APP_ROLE._USER] },
-      { userName: 'Bruno', userLogin: 'bruno', password: 'power', roles: [APP_ROLE._USER] },
+      { userName: 'admin', userLogin: 'admin', password: 'admin', roles: [ROLE._ADMIN] },
+      { userName: 'user1', userLogin: 'user1', password: 'user1', roles: [ROLE._USER] },
+      { userName: 'user2', userLogin: 'user2', password: 'user2', roles: [ROLE._USER] },
+      { userName: 'bruno', userLogin: 'bruno', password: 'bruno', roles: [ROLE._USER] },
     ];
 
   login(userCreds: UserCreds) {
-    console.log(userCreds);
     let matchingUser = this.userDirectory.find((user) => user.password === userCreds.password && user.userLogin.toLowerCase() === userCreds.userLogin.toLowerCase());
     if (matchingUser) {
       localStorage.setItem(this.LS_USER_KEY, matchingUser.userLogin);
@@ -41,6 +44,27 @@ export class AuthService {
     }else{
       return throwError(()=> new Error("UserName or Passcode is incorrect. Please try again"));
     }
+  }
+
+  realLogin(userCreds: UserCreds):Observable<any>{
+    let body = new URLSearchParams();
+    body.set("userName",userCreds.userLogin);
+    body.set("password",userCreds.password);
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    })
+    let options = {headers:headers}
+    return this.http.post(
+      this.LOGIN_URL,
+      body,
+      options
+    ).pipe(
+        delay(5000),
+        map(
+          ()=>this.login(userCreds)
+        ),
+    );
   }
 
   logout() {

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
@@ -9,16 +9,22 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class InitTransactionComponent implements OnInit {
 
-  regions : Array<string> = ['Port Louis', 'Curepipe', 'Vacoas', 'Port Mathurin'];
-  currencies : Array<string> = ['AED', 'EUR', 'CHF', 'MUR', 'USD'];
+  regions: Array<string> = ['Port Louis', 'Curepipe', 'Vacoas', 'Port Mathurin'];
+  currencies: Array<string> = ['AED', 'EUR', 'CHF', 'MUR', 'USD'];
 
   transactionDetails: FormGroup;
-  submissionState:string = '';
+  submissionState: string = '';
 
-  constructor(private fb: FormBuilder,private txnService:TransactionService) { 
+  refId: string = '';
+  initialValues: any;
+
+  @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
+
+
+  constructor(private fb: FormBuilder, private txnService: TransactionService) {
     this.transactionDetails = this.fb.group(
       {
-        customerType : [ "New", Validators.required ],
+        customerType: ["New", Validators.required],
         customerNumber: ["", [Validators.required]],
         customerName: ["", [Validators.required]],
         customerAddress: ["", [Validators.required]],
@@ -31,19 +37,29 @@ export class InitTransactionComponent implements OnInit {
         cardDetails: ["", [Validators.required]],
         region: ["", [Validators.required]]
       }
-    )
+    );
+    this.initialValues = this.transactionDetails.value;
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    if(this.transactionDetails.valid){
+  onSubmit() {
+    if (this.transactionDetails.valid) {
       this.submissionState == 'INPROGRESS';
       console.log(this.transactionDetails.value);
       this.txnService.submitTransaction(this.transactionDetails.value).subscribe(
-        (data)=>{ this.submissionState = 'SUCCESS', alert(data)},
-        ()=>{ this.submissionState = 'ERROR' }
+        (data) => {
+          this.submissionState = 'SUCCESS';
+          this.refId = data.referenceId;
+          this.formDirective.resetForm(this.initialValues);
+          // setTimeout(() => this.submissionState = '', 5000)
+        },
+        () => {
+          this.submissionState = 'ERROR';
+          this.refId = '';
+          // setTimeout(() => this.submissionState = '', 10000)
+        }
       )
     };
   }

@@ -1,14 +1,14 @@
-<div class="flex justify-center items-center small-caps w-full h-full card-container uppercase">
+<div class="flex justify-center items-center small-caps w-full h-full card-container">
     <mat-card class="mat-elevation-z8 w-1/4">
         <mat-card-title class="p-16 text-center">Tux Net Banking</mat-card-title>
         <mat-card-subtitle class="text-center">
             Login
         </mat-card-subtitle>
-        <div class="bg-red-100 border border-red-400 text-orange-600 px-4 py-3 rounded" *ngIf="state=='ERROR'">
+        <div class="bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded" *ngIf="state=='ERROR'">
             <span class="flex items-center justify">
                 <mat-icon class="mr-2">error</mat-icon>
-                <div classs="px-2 mx-4">Username / Password Incorrect.</div>
-                <button (click)="state=''" class="ml-auto">X</button>
+                <div classs="px-2 mx-4" translate="">{{ errorCode }}</div>
+                <button (click)="state=''" class="ml-auto text-black">X</button>
             </span>
         </div>
         <mat-card-content>

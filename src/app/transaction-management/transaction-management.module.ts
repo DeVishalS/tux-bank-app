@@ -6,6 +6,7 @@ import { TransactionManagementRoutingModule } from './transaction-management-rou
 import { TransactionsTableComponent } from './components/transactions-table/transactions-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -19,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     TransactionManagementRoutingModule,
     SharedModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     TransactionsListComponent,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,8 +13,10 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
   state: string = '';
+  errorCode:string='';
+  errorMessage:string='';
 
-  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -24,14 +27,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.state='INPROGRESS';
-    this.authService.login(this.loginForm.value).subscribe({
+    this.authService.realLogin(this.loginForm.value).subscribe({
       complete: () => {
         this.state=''; 
-        this.router.navigateByUrl(''); 
+        this.router.navigateByUrl('/');
+        this.errorCode='';
       },
       error: (err) => { 
         this.state='ERROR';
-        console.log(err); 
+        this.errorCode = err.error.error.errorCode;
       }
     });
   }
