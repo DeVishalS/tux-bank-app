@@ -20,6 +20,13 @@ small-caps{
   font-variant-caps: small-caps;
 }
 
+.active{
+  border: 2px solid #C62368;
+  /* background-color: black ; */
+  /* color: #C62368; */
+  word-wrap:break-word;
+}
+
 .card-container{
   background: url('/assets/img/svg/nice-curves-1.svg');
   aspect-ratio: 960/540;

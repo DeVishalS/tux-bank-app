@@ -1,15 +1,19 @@
 <div class="flex justify-center items-center small-caps w-full h-full card-container uppercase">
     <mat-card class="mat-elevation-z8 w-1/4">
         <mat-card-title class="p-16 text-center">Tux Net Banking</mat-card-title>
-        <mat-card-subtitle>
-            
+        <mat-card-subtitle class="text-center">
+            Login
         </mat-card-subtitle>
         <div class="bg-red-100 border border-red-400 text-orange-600 px-4 py-3 rounded" *ngIf="state=='ERROR'">
-            <span class="flex items-center break-words"><mat-icon>error</mat-icon><span classs="px-2">Username / Password Incorrect. Please try again</span> </span>
-          </div>
+            <span class="flex items-center justify">
+                <mat-icon class="mr-2">error</mat-icon>
+                <div classs="px-2 mx-4">Username / Password Incorrect.</div>
+                <button (click)="state=''" class="ml-auto">X</button>
+            </span>
+        </div>
         <mat-card-content>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
-                <fieldset class="border-2 rounded flex flex-col justify-start my-5">
+                <fieldset class="border-2 rounded flex flex-col justify-start my-5 min-w-full">
                     <legend class="mx-1">
                         <mat-icon color="accent">locked</mat-icon>
                     </legend>
@@ -33,7 +37,7 @@
             </form>
         </mat-card-content>
         <mat-card-actions align="end">
-            
+
         </mat-card-actions>
         <mat-card-footer>
             <mat-progress-bar mode="indeterminate" *ngIf="state=='INPROGRESS'" color="accent"></mat-progress-bar>

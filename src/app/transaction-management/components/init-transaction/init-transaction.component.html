@@ -162,7 +162,7 @@
 
     </mat-card-content>
     <mat-card-footer>
-        <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+        <mat-progress-bar mode="indeterminate" color="accent" *ngIf="submissionState=='INPROGRESS'"></mat-progress-bar>
     </mat-card-footer>
 
 </mat-card>

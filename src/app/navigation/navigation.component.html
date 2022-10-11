@@ -21,13 +21,13 @@
       <span>Tux's Bank</span>
       <div class="flex flex-row-reverse w-full">
         <div>
-          <button mat-flat-button color="accent" (click)="logout()">
+          <button mat-button (click)="logout()">
             <mat-icon> logout </mat-icon>
             LOGOUT
           </button>
-          <button mat-flat-button color="accent">
+          <button mat-button>
             <mat-icon> account_circle </mat-icon>
-            PROFILE
+            {{ userName }}
           </button>
         </div>
       </div>

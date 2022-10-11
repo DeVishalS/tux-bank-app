@@ -13,7 +13,7 @@ export class InitTransactionComponent implements OnInit {
   currencies : Array<string> = ['AED', 'EUR', 'CHF', 'MUR', 'USD'];
 
   transactionDetails: FormGroup;
-  submissionState:string = 'SUCCESS';
+  submissionState:string = '';
 
   constructor(private fb: FormBuilder,private txnService:TransactionService) { 
     this.transactionDetails = this.fb.group(

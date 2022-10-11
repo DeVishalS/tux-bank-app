@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent {
 
+  userName:string = 'Unknown';
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -19,6 +21,14 @@ export class NavigationComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver,private authService:AuthService, private router:Router) {}
+
+  ngOnInit(){
+    this.getUserName();
+  }
+
+  getUserName(){
+    this.authService.getUserName().subscribe((userName)=> this.userName = userName || 'Unknown' )
+  }
 
   logout(){
     this.authService.logout().subscribe(
